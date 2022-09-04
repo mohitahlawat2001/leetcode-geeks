@@ -23,10 +23,10 @@ public:
     
     vector<vector<int>> kSum(vector<int> nums, int start, long target, int k){
         vector<vector<int>> res;
-        int len = nums.size();
-        if (start > len - 1) {
-            return res;
-        }
+        // int len = nums.size();
+        // if (start > len - 1) {
+        //     return res;
+        // }
         int average_value = target / k;
         if (nums[start] > average_value || average_value > nums.back()) {
             return res;
