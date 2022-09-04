@@ -1,6 +1,6 @@
 class Solution {
 public:
-    vector<vector<int>> twoSum(vector<int>& nums, int l , int target){
+    vector<vector<int>> twoSum(vector<int>& nums, int l , long target){
         vector<vector<int>> ans;
         int r = nums.size()-1;
         int start = l;
@@ -27,10 +27,10 @@ public:
         // if (start > len - 1) {
         //     return res;
         // }
-        int average_value = target / k;
-        if (nums[start] > average_value || average_value > nums.back()) {
-            return res;
-        }
+        // int average_value = target / k;
+        // if (nums[start] > average_value || average_value > nums.back()) {
+        //     return res;
+        // }
         if(k==2){
             return twoSum(nums, start, target);
         }
