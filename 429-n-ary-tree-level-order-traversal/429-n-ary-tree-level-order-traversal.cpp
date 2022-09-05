@@ -21,24 +21,29 @@ public:
 class Solution {
 public:
     vector<vector<int>> levelOrder(Node* root) {
-          if (root == NULL) 
-			return {};
-        vector<vector<int>> res;
-        queue<Node*> q;
-        q.push(root); 
-        while (!q.empty())
+          queue<Node*> q;
+        vector<vector<int>> ans;
+        if(root==nullptr)
+            return ans;
+        q.push(root);
+        while(!q.empty())
         {
-            int size = q.size(); 
-            vector<int> currlevel;
-            for(int i=0;i<size;i++){
-                Node* tmp=q.front();
+            int si=q.size();
+            vector<int> ds;
+            for(int i=0;i<si;i++)
+            {
+                Node* node=q.front();
                 q.pop();
-                currlevel.push_back(tmp->val);
-                for (auto n : tmp -> children)
-                     q.push(n); 
+                ds.push_back(node->val);
+                for(auto m:node->children)
+                {
+                    q.push(m);
+                    
+                }
+                
             }
-            res.push_back(currlevel);
+            ans.push_back(ds);
         }
-        return res;
+        return ans;
     }
 };
