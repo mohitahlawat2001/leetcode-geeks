@@ -1,6 +1,9 @@
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
+        ios::sync_with_stdio(false);
+        cin.tie(0);
+        cout.tie(0);
      int c1 = INT_MAX, c2 = INT_MAX;
     for (int x : nums) {
         if (x <= c1) {
