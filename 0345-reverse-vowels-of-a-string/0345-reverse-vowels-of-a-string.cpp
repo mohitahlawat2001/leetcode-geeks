@@ -7,16 +7,24 @@ public:
     string reverseVowels(string s) {
         int i = 0, j = s.size()-1;
         while(j>i){
-            while(j>i&&!isVowel(s[i])){
+            if(isVowel(s[i])&&isVowel(s[j])){
+                swap(s[j--],s[i++]);
+            }
+            
+            
+            
+            else if(isVowel(s[j])&&!isVowel(s[i])){
                  
                     i++;
             }
-            while(j>i&&!isVowel(s[j])){
+            else if (isVowel(s[i])&&!isVowel(s[j])){
             
                 j--;
+            } else{
+                i++;
+                j--;
             }
-            if (i < j)
-            swap(s[j--],s[i++]);
+            
             
         }
         return s;
