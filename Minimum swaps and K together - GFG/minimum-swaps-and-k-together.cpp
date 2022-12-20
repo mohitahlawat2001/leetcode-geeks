@@ -29,9 +29,9 @@ public:
         
         for(int i=s;i<n;i++){
             if(arr[i]>k) swap++;
-            // else swap++;
-            if (arr[i-s]>k) swap--;
             // else swap--;
+            if (arr[i-s]>k) swap--;
+            // else swap++;
             minSwap = min(minSwap,swap);
         }
         return minSwap;
