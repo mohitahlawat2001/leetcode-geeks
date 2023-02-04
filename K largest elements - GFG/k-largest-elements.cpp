@@ -13,17 +13,25 @@ class Solution
     vector<int> kLargest(int arr[], int n, int k)
     {
         // code here
-        priority_queue<int> q;
-        for(int i = 0 ; i < n ; i++){
+        priority_queue<int,vector<int>,greater<int>> q;
+        for(int i = 0 ; i < k ; i++){
             q.push(arr[i]);
         }
         vector<int> ans;
-        int i =0;
-        while(k&&i<n){
+        int i = k;
+        while(i<n){
+            if(arr[i]>q.top()){
+                q.pop();
+                q.push(arr[i]);
+            }
+            i++;
+        }
+        while(k){
             ans.push_back(q.top());
             q.pop();
-            k--;i++;
+            k--;
         }
+        reverse(ans.begin(),ans.end());
         return ans;
         
     }
