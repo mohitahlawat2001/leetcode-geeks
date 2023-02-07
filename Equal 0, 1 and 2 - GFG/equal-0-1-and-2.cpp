@@ -19,9 +19,9 @@ class Solution {
             if(it=='0') c0++;
             else if(it=='1') c1++;
             else c2++;
-            string l = to_string(c0-c1);
-            string r = to_string(c1-c2);
-            string key  =l+"#"+r;
+            // string l = to_string(c0-c1);
+            // string r = to_string(c1-c2);
+            string key  =to_string(c0-c1)+"#"+to_string(c1-c2);
             if(map[key]>0){
                 ans+= map[key];
                 map[key]++;
