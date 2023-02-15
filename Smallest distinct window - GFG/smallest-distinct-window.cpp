@@ -17,12 +17,19 @@ class Solution{
         unordered_map<char,int> map;
         while(i<str.length()){
             map[str[i]]++;
-            if(map.size()==s.size()){
-                while(map[str[j]]>1){
-                    map[str[j]]--;
-                    j++;
-                }
+            // if(map.size()==s.size()){
+            //     while(map[str[j]]>1){
+            //         map[str[j]]--;
+            //         j++;
+            //     }
+            //     ans = min(ans,i-j+1);
+            // }
+            while(map.size()==s.size()){
                 ans = min(ans,i-j+1);
+                map[str[j]]--;
+                if(map[str[j]]==0) map.erase(str[j]);
+                j++;
+  
             }
             i++;
         }
