@@ -32,7 +32,7 @@ class Solution {
   public:
     vector<int> getDistinctDifference(int N, vector<int> &a) {
         // code here
-        vector<int> left(N,0) , right(N,0);
+        vector<int> left(N,0);
         set<int> s;
         for(int i=0;i<N;i++){
             left[i]=s.size();
@@ -40,14 +40,14 @@ class Solution {
         }
         set<int> d;
         for(int i=N-1;i>=0;i--){
-            right[i]=d.size();
+            left[i]=left[i] - d.size();
             d.insert(a[i]);
         }
-        vector<int> ans(N,0);
-        for(int i=0;i<N;i++){
-            ans[i] = left[i]-right[i];
-        }
-        return ans;
+        // vector<int> ans(N,0);
+        // for(int i=0;i<N;i++){
+        //     ans[i] = left[i]-right[i];
+        // }
+        return left;
     }
 };
 
