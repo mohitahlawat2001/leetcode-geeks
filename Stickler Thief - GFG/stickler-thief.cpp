@@ -8,7 +8,7 @@ class Solution
 {
     public:
     //Function to find the maximum money the thief can get.
-    int helper(int arr[], int idx,vector<int> &dp){
+    /*int helper(int arr[], int idx,vector<int> &dp){
         if(idx ==0 ) return arr[idx];
         if(dp[idx]!=-1) return dp[idx];
         int pick = arr[idx] + helper(arr,idx-2,dp);
@@ -20,6 +20,22 @@ class Solution
         // Your code here
         vector<int> dp(n,-1);
         return helper(arr,n-1,dp);
+    }
+    */
+    int FindMaxSum(int arr[], int n)
+    {
+        // Your code here
+        int prev = arr[0] , prev2 = 0;
+        
+        for(int i=1;i<n;i++){
+            int take  = arr[i] ;
+            if(i>1) take += prev2;
+            int notTake = prev;
+            int curr = max(take , notTake);
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
     }
 };
 
