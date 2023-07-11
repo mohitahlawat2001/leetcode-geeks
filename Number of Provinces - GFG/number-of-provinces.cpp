@@ -9,33 +9,59 @@ using namespace std;
 class Solution {
   public:
     
-     void dfs(int i, vector<int> adj[], vector<bool> &vis){
-        vis[i]=1;
-        for(auto it:adj[i]){
-            if(!vis[it]){
-                dfs(it,adj,vis);
-            }
-        }
-    }
+    	class DisjointSet
+	{
+	    vector<int> rank,parent;
+	    public:
+	    DisjointSet(int n){
+	        rank.resize(n+1,0);
+	        parent.resize(n+1,0);
+	        for(int i=0;i<=n;i++){
+	            parent[i]=i;
+	        }
+	    }
+	    
+	    int finduPar(int node ){
+	        if(parent[node]==node){
+	            return node;
+	        }
+	        return parent[node] = finduPar(parent[node]);
+	    }
+	    
+	    void unionByRank(int u, int v){
+	        int ulp_u = finduPar(u);
+	        int ulp_v = finduPar(v);
+	        if(ulp_u == ulp_v) return;
+	        if(rank[ulp_u] < rank[ulp_v]){
+	            parent[ulp_u] = ulp_v;
+	        } else if(rank[ulp_u] > rank[ulp_v]){
+	            parent[ulp_v] = ulp_u;
+	        }else{
+	            parent[ulp_v] = ulp_u;
+	            rank[ulp_v]++;
+	        }
+	    }
+	    
+	};
+     
     int numProvinces(vector<vector<int>>& isConnected, int V) {
         int n = isConnected.size();
-        vector<int> adj[n];
-
+        // vector<int> adj[n];
+        DisjointSet ds(V);
         for(int i=0;i<n;i++){
             for(int j=0;j<n;j++){
-                if(isConnected[i][j] == 1 && i!=j){
-                    adj[i].push_back(j);
-                    adj[j].push_back(i);
+                if(isConnected[i][j] == 1){
+                    ds.unionByRank(i,j);
                 }
             }
         }
 
-        vector<bool> vis(n,false);
+        // vector<bool> vis(n,false);
 
         int cnt =0;
-        for(int i=0;i<n;i++){
-            if(!vis[i]){
-                dfs(i,adj,vis);
+        for(int i=0;i<V;i++){
+            if(ds.finduPar(i)==i){
+                // dfs(i,adj,vis);
                 cnt++;
             }
         }
