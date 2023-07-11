@@ -6,32 +6,68 @@ using namespace std;
 class Solution
 {
 	public:
+	class DisjointSet
+	{
+	    vector<int> rank,parent;
+	    public:
+	    DisjointSet(int n){
+	        rank.resize(n+1,0);
+	        parent.resize(n+1,0);
+	        for(int i=0;i<=n;i++){
+	            parent[i]=i;
+	        }
+	    }
+	    
+	    int finduPar(int node ){
+	        if(parent[node]==node){
+	            return node;
+	        }
+	        return parent[node] = finduPar(parent[node]);
+	    }
+	    
+	    void unionByRank(int u, int v){
+	        int ulp_u = finduPar(u);
+	        int ulp_v = finduPar(v);
+	        if(ulp_u == ulp_v) return;
+	        if(rank[ulp_u] < rank[ulp_v]){
+	            parent[ulp_u] = ulp_v;
+	        } else if(rank[ulp_u] > rank[ulp_v]){
+	            parent[ulp_v] = ulp_u;
+	        }else{
+	            parent[ulp_v] = ulp_u;
+	            rank[ulp_v]++;
+	        }
+	    }
+	    
+	};
+	
 	//Function to find sum of weights of edges of the Minimum Spanning Tree.
     int spanningTree(int V, vector<vector<int>> adj[])
     {
         // code here
-        
-        priority_queue<pair<int,int> , vector<pair<int,int>>, greater<pair<int,int>>> pq;
-        vector<bool> vis(V,0);
-        pq.push({0,0});
-        
-        int wait=0;
-        while(!pq.empty()){
-            int wt = pq.top().first;
-            int node = pq.top().second;
-            pq.pop();
-            if(vis[node]) continue;
-            vis[node]=1;
-            wait+=wt;
-            
-            for(auto it:adj[node]){
-                if(!vis[it[0]]){
-                    pq.push({it[1],it[0]});
-                }
+        vector<pair<int,pair<int,int>>> edges;
+        for(int i=0;i<V;i++){
+            for(auto it:adj[i]){
+                edges.push_back({it[1],{i,it[0]}});
             }
-            
         }
-        return wait;
+        
+        sort(edges.begin(), edges.end());
+        DisjointSet ds(V);
+        
+        int mstWt =0;
+        for(auto it:edges){
+            int wt = it.first;
+            int u = it.second.first;
+            int v = it.second.second;
+            
+            if(ds.finduPar(u) !=ds.finduPar(v)){
+                mstWt+=wt;
+                ds.unionByRank(u,v);
+            }
+        }
+        
+        return mstWt;
         
     }
 };
