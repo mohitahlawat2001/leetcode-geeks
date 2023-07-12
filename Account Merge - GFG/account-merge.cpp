@@ -62,12 +62,12 @@ class Solution{
             m[i].push_back(it.first);
         }
         
-        for(auto it:m){
-            sort(it.second.begin(), it.second.end());
-        }
+        // for(auto it:m){
+        // }
         
         vector<vector<string>> ans;
         for(auto it:m){
+            sort(it.second.begin(), it.second.end());
             vector<string> a;
             a.push_back(accounts[it.first][0]);
             
