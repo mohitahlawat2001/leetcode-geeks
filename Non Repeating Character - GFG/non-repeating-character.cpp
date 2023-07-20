@@ -12,22 +12,16 @@ class Solution
     char nonrepeatingCharacter(string S)
     {
        //Your code here
-       unordered_map<char,pair<int,int>> map;
-       for(int i = 0 ; i <S.length() ; i++){
-           if(map.find(S[i]) == map.end()){
-               map[S[i]].first++;
-               map[S[i]].second=i;
-           }else{
-               map[S[i]].first++;
-           }
+       vector<int> f(26,0);
+       for(auto i:S){
+           f[i-'a']++;
        }
-        char ans='$';
-        int m = INT_MAX;
-       for(auto v:map){
-           if(v.second.first == 1 && m>v.second.second)
-            {    ans =v.first; m = v.second.second;}
+       
+       for(auto i:S){
+           if(f[i-'a']==1) return i;
        }
-       return ans;
+       
+       return '$';
        
     }
 
