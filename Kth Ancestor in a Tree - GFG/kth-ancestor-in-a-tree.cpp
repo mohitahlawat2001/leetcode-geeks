@@ -113,15 +113,16 @@ struct Node
 // your task is to complete this function
 void f(Node *root, int node, unordered_map<int,int> &map){
     if(root == NULL) return ;
-    // if(root->data == node) return;
     
     if(root->left) {
         map[root->left->data] = root->data;
         f(root->left,node,map);
+    if(root->data == node) return;
     }
     if(root->right){ 
         map[root->right->data] = root->data;
         f(root->right,node,map);
+        if(root->data == node) return;
     }
     
 }
