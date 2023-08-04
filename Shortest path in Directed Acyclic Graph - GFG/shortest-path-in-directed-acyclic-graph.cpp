@@ -8,15 +8,15 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
-    void dfs(int i, vector<pair<int,int>> adj[], vector<bool> &vis, stack<int> &st ){
-        vis[i]=1;
+    void dfs(int i, vector<pair<int,int>> adj[],stack<int> &st,vector<bool> &vis){
+        vis[i]=true;
         for(auto it:adj[i]){
             if(!vis[it.first]){
-                dfs(it.first , adj, vis, st);
+                dfs(it.first,adj,st,vis);
             }
         }
         st.push(i);
-    }
+    }  
      vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
         // code here
         vector<pair<int,int>> adj[N];
@@ -25,34 +25,36 @@ class Solution {
             adj[it[0]].push_back({it[1],it[2]});
         }
         
+        stack<int>  st;
         vector<bool> vis(N,0);
-        stack<int> st;
+        
         for(int i=0;i<N;i++){
             if(!vis[i]){
-                dfs(i,adj,vis,st);
+                dfs(i,adj,st,vis);
             }
         }
         
-        vector<int> dist(N,1e9);
+        vector<int> dist(N,1e8);
         dist[0]=0;
         while(!st.empty()){
-            int node = st.top();
+            int v = st.top();
             st.pop();
-            
-            for(auto it:adj[node]){
-                int v = it.first;
-                int wt = it.second;
-                
-                if(dist[node]+wt < dist[v]){
-                    dist[v] = wt + dist[node];
+            for(auto i:adj[v]){
+                int node = i.first;
+                int wt = i.second;
+                if(dist[v] + wt < dist[node]){
+                    dist[node] = dist[v]+wt;
                 }
             }
         }
+        
         for(int &i:dist){
-            if(i==1e9) i=-1;
+            if(i==1e8) i=-1;
         }
         
         return dist;
+        
+        
     }
 };
 
