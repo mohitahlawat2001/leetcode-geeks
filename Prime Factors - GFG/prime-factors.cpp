@@ -9,18 +9,19 @@ using namespace std;
 
 class Solution{
 	public:
-	vector<int>AllPrimeFactors(int N) {
+	vector<int>AllPrimeFactors(int n) {
 	    // Code here
-	    if(N==1) return {};
-	    int n = N;
+	    if(n==1) return {};
+	    
 	    vector<int> ans;
-	    for(int i=2;i<=N;i++){
+	    for(int i=2;i*i<=n;i++){
 	        
 	        if(n%i==0) ans.push_back(i);
 	        while(n%i ==0){
 	            n /=i;
 	        }
 	    }
+	    if(n>1) ans.push_back(n);
 	    return ans;
 	}
 };
