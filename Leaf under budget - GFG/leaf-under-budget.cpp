@@ -132,7 +132,10 @@ public:
                     if(k>=level){
                         count++;
                         k-=level;
+                        
+                        if(k==0) return count;
                     }
+                    
                 }
                 if(it->left) q.push(it->left);
                 if(it->right) q.push(it->right);
