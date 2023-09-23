@@ -15,21 +15,14 @@ class Solution{
     int equilibriumPoint(long long a[], int n) {
     
         // Your code here
-        vector<long long> pre,post;
-        long long sum=0;
+        long long tot =0;
+        for(int i=0;i<n;i++) tot+=a[i];
+        
+        long long leftsum=0;
         for(int i=0;i<n;i++){
-            pre.push_back(sum);
-            sum+=a[i];
-            // cout<<sum
-        }
-        sum=0;
-        for(int i=n-1;i>=0;i--){
-            post.push_back(sum);
-            sum+=a[i];
-        }
-        reverse(post.begin(),post.end());
-        for(int i=0;i<n;i++){
-            if(pre[i]==post[i]) return i+1;
+            tot-=a[i];
+            if(tot==leftsum) return i+1;
+            leftsum+=a[i];
         }
         return -1;
     }
