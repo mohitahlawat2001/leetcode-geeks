@@ -27,31 +27,27 @@ class Solution
 {
     public:
     //Function to find the maximum profit and the number of jobs done.
-    static bool comp(Job a, Job b){
+    static bool comp(Job &a, Job &b){
         return a.profit>b.profit;
     }
     vector<int> JobScheduling(Job arr[], int n) 
     { 
         // your code here
         sort(arr,arr+n,comp);
-        auto max_ele = max_element(arr, arr + n, [](const Job& a, const Job& b) { return a.dead < b.dead; });
-
-        int max_value = max_ele->dead; 
-        vector<bool> slots(max_value,0);
         
-        int maxProfit = 0 , jobAllocated =0;
-        
-        for(int i = 0 ; i <n ;i++){
-            for(int j = arr[i].dead -1; j>=0; j--){
-                if(slots[j]==false){
-                    slots[j]=true;
-                    jobAllocated++;
-                    maxProfit += arr[i].profit;
+        vector<int> ans(n+1,-1);
+        int noOfJob =0 , maxProfit=0;
+        for(int i=0;i<n;i++){
+            for(int j=arr[i].dead;j>0;j--){
+                if(ans[j]==-1){
+                    noOfJob++;
+                    maxProfit+=arr[i].profit;
+                    ans[j]=arr[i].id;
                     break;
                 }
             }
         }
-        return {jobAllocated , maxProfit};
+        return {noOfJob,maxProfit};
     } 
 };
 
