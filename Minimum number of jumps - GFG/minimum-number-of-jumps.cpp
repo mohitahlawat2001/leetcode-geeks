@@ -12,7 +12,7 @@ class Solution{
         // Your code here
         if(n==1) return 0;
         if(arr[0]==0) return -1;
-        long long maxr = (long long)arr[0] , steps= (long long)arr[0],jump=1;
+        long long maxr = arr[0] , steps=arr[0],jump=1;
         long long i=1;
         while(i<n){
             
@@ -26,7 +26,7 @@ class Solution{
             if(i<n-1 and i>=maxr) return -1;
             if(i>=n-1) return (int)jump;
             jump++;
-            steps = (long long)maxr-i+1;
+            steps = maxr-i+1;
         }
         return -1;
     }
