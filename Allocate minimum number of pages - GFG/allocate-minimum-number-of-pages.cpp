@@ -12,45 +12,33 @@ class Solution
 {
     public:
     //Function to find minimum number of pages.
-    bool isPossible(int pages[], int books , int maxLoad, int totalStud){
-        int currStud =1 , currPages =0;
-        
-        for(int i=0; currStud <= totalStud && i< books; i++){
-            if(currPages + pages[i]<= maxLoad){
-                currPages += pages[i];
-            } else{
-                currStud++;
-                currPages = pages[i];
+    int fun(int A[], int N, int mid){
+        int student=1, pages = 0;
+        for(int i=0;i<N;i++){
+            if(A[i]+pages <=mid){
+                pages+=A[i];
+            }else{
+                student++;
+                pages = A[i];
             }
         }
-        if(currStud > totalStud) return false;
-        else return true;
+        return student;
     }
-    
     int findPages(int A[], int N, int M) 
     {
         //code here
-        if(N<M) return -1;
-        int max = A[0], sum =0;
-        for(int i=0;i<N;i++){
-            if(A[i]>max){
-                max = A[i];
-            }
-            sum+=A[i];
-        }
-        int l=max , r = sum;
-        // cout<<l<<" "<<r<<endl;
-        int ans = sum;
-        while(l<=r){
-            int m = l+(r-l)/2;
-            if(isPossible(A,N,m,M)==true){
-                ans=m;
-                r=m-1;
+        if(M>N) return -1;
+        int l = *max_element(A,A+N), r = accumulate(A,A+N,0);
+        while(r>=l){
+            int mid = l + (r-l)/2;
+            if(fun(A,N,mid)<=M){
+                r=mid-1;
             }else{
-                l=m+1;
+                l=mid+1;
             }
         }
-        return ans;
+        return l;
+        
     }
 };
 
